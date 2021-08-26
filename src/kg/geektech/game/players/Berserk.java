@@ -4,8 +4,7 @@ import kg.geektech.game.general.RPG_Game;
 
 public class Berserk extends Hero {
     public Berserk(int health, int damage) {
-        super(health, damage,
-                SuperAbility.SAVE_DAMAGE_AND_REVERT);
+        super(health, damage, SuperAbility.SAVE_DAMAGE_AND_REVERT);
     }
 
     @Override

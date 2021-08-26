@@ -16,11 +16,15 @@ public class RPG_Game {
         Magic magic = new Magic(260, 20);
         Berserk berserk = new Berserk(280, 10);
         Medic assistant = new Medic(250, 10, 10);
-        Hero[] heroes = {warrior, support, magic, berserk, assistant};
+        Thor thor = new Thor(200, 15);
+        Witcher witcher = new Witcher(400, 0);
+        TrickyBastard joker = new TrickyBastard(210, 35);
+        MusicMan morgenshtern = new MusicMan(400, 0);
+        Hero[] heroes = {warrior, support, magic, berserk, assistant, thor, witcher, joker,morgenshtern};
 
         printStatistics(boss, heroes);
         while (!isGameFinished(boss, heroes)) {
-            round(boss, heroes);
+            round(boss, heroes, joker);
         }
     }
 
@@ -44,16 +48,26 @@ public class RPG_Game {
     private static void bossHits(Boss boss, Hero[] heroes) {
         for (int i = 0; i < heroes.length; i++) {
             if (heroes[i].getHealth() > 0 && boss.getHealth() > 0)
-                heroes[i].setHealth(heroes[i].getHealth()
-                        - boss.getDamage());
+                heroes[i].setHealth(heroes[i].getHealth() - boss.getDamage());
         }
     }
 
-    private static void round(Boss boss, Hero[] heroes) {
+    private static void round(Boss boss, Hero[] heroes, TrickyBastard joker) {
         bossHits(boss, heroes);
         heroesHit(boss, heroes);
         heroesApplySuperAbilities(boss, heroes);
         printStatistics(boss, heroes);
+        bossGetDamage(boss);
+        jokerGetDamageAndHealth(joker);
+    }
+
+    private static void bossGetDamage(Boss boss) {
+        boss.setDamage(50);
+    }
+
+    private static void jokerGetDamageAndHealth(TrickyBastard joker) {
+        joker.setDamage(35);
+        joker.setHealth(joker.getHealth() + 180);
     }
 
     private static void printStatistics(Boss boss, Hero[] heroes) {
